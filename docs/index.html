@@ -24,7 +24,7 @@
   .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
   .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
 
-  header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  header{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
   .nav{display:flex;align-items:center;gap:14px;height:60px}
   .logo{font-weight:800;font-size:19px;letter-spacing:-.02em}
   .logo b{color:var(--accent)}
@@ -100,38 +100,38 @@
       <div class="stat"><div class="n">4</div><div class="l">owners to page</div></div>
       <div class="stat"><div class="n">5</div><div class="l">platforms</div></div>
     </div>
-    <svg width="1024" height="430" viewBox="0 0 1024 430" style="display:block;min-width:720px;margin:0 auto">
+    <svg width="1160" height="430" viewBox="0 0 1160 430" style="display:block;min-width:760px;margin:0 auto">
       <g stroke="var(--line2)" stroke-width="1.6" fill="none">
-        <path d="M235 250 C285 250 285 150 335 150"/>
-        <path d="M235 250 C285 250 285 350 335 350"/>
-        <path d="M540 150 C590 150 590 250 640 250"/>
-        <path d="M540 350 C590 350 590 250 640 250"/>
-        <path d="M845 250 C895 250 895 120 812 120" transform="translate(0)"/>
-        <path d="M812 250 L860 250"/>
-        <path d="M812 250 C862 250 862 350 900 350"/>
+        <path d="M220 215 C270 215 270 125 310 125"/>
+        <path d="M220 215 C270 215 270 305 310 305"/>
+        <path d="M510 125 C560 125 560 215 600 215"/>
+        <path d="M510 305 C560 305 560 215 600 215"/>
+        <path d="M800 215 C855 215 855 95 900 95"/>
+        <path d="M800 215 L900 215"/>
+        <path d="M800 215 C855 215 855 335 900 335"/>
       </g>
       <g font-family="-apple-system,Segoe UI,sans-serif">
-        <g><rect x="60" y="222" width="175" height="56" rx="12" fill="var(--src)" stroke="var(--accent)" stroke-width="1.6"/>
-          <text x="78" y="250" font-size="15" font-weight="700" fill="var(--srctx)">orders_raw</text>
-          <text x="78" y="268" font-size="11" fill="var(--dim)" class="mono">source · snowflake</text></g>
-        <g><rect x="335" y="122" width="205" height="56" rx="12" fill="var(--panel2)" stroke="var(--line2)"/>
-          <text x="353" y="150" font-size="15" font-weight="600">stg_orders</text>
-          <text x="353" y="168" font-size="11" fill="var(--dim)" class="mono">table · dbt</text></g>
-        <g><rect x="335" y="322" width="205" height="56" rx="12" fill="var(--panel2)" stroke="var(--line2)"/>
-          <text x="353" y="350" font-size="15" font-weight="600">stg_customers</text>
-          <text x="353" y="368" font-size="11" fill="var(--dim)" class="mono">table · dbt</text></g>
-        <g><rect x="640" y="222" width="205" height="56" rx="12" fill="var(--panel2)" stroke="var(--line2)"/>
-          <text x="658" y="250" font-size="15" font-weight="600">fct_orders</text>
-          <text x="658" y="268" font-size="11" fill="var(--dim)" class="mono">table · dbt · jrivera</text></g>
-        <g><rect x="812" y="92" width="205" height="56" rx="12" fill="var(--panel2)" stroke="var(--line2)"/>
-          <text x="830" y="120" font-size="14" font-weight="600">agg_daily_revenue</text>
-          <text x="830" y="138" font-size="11" fill="var(--dim)" class="mono">table · snowflake</text></g>
-        <g><rect x="812" y="222" width="205" height="56" rx="12" fill="var(--redbg)" stroke="var(--red)" stroke-width="1.5"/>
-          <text x="830" y="250" font-size="15" font-weight="700" fill="var(--red)">Ops Monitoring</text>
-          <text x="830" y="268" font-size="11" fill="var(--red)" class="mono">dashboard · tableau</text></g>
-        <g><rect x="812" y="352" width="205" height="56" rx="12" fill="var(--redbg)" stroke="var(--red)" stroke-width="1.5"/>
-          <text x="830" y="380" font-size="14" font-weight="700" fill="var(--red)">Executive Revenue</text>
-          <text x="830" y="398" font-size="11" fill="var(--red)" class="mono">dashboard · powerbi</text></g>
+        <g><rect x="40" y="186" width="180" height="58" rx="12" fill="var(--src)" stroke="var(--accent)" stroke-width="1.6"/>
+          <text x="58" y="214" font-size="15" font-weight="700" fill="var(--srctx)">orders_raw</text>
+          <text x="58" y="233" font-size="11" fill="var(--dim)" class="mono">source · snowflake</text></g>
+        <g><rect x="310" y="96" width="200" height="58" rx="12" fill="var(--panel2)" stroke="var(--line2)"/>
+          <text x="328" y="124" font-size="15" font-weight="600">stg_orders</text>
+          <text x="328" y="143" font-size="11" fill="var(--dim)" class="mono">table · dbt</text></g>
+        <g><rect x="310" y="276" width="200" height="58" rx="12" fill="var(--panel2)" stroke="var(--line2)"/>
+          <text x="328" y="304" font-size="15" font-weight="600">stg_customers</text>
+          <text x="328" y="323" font-size="11" fill="var(--dim)" class="mono">table · dbt</text></g>
+        <g><rect x="600" y="186" width="200" height="58" rx="12" fill="var(--panel2)" stroke="var(--line2)"/>
+          <text x="618" y="214" font-size="15" font-weight="600">fct_orders</text>
+          <text x="618" y="233" font-size="11" fill="var(--dim)" class="mono">table · dbt · jrivera</text></g>
+        <g><rect x="900" y="66" width="210" height="58" rx="12" fill="var(--panel2)" stroke="var(--line2)"/>
+          <text x="918" y="94" font-size="14" font-weight="600">agg_daily_revenue</text>
+          <text x="918" y="113" font-size="11" fill="var(--dim)" class="mono">table · snowflake</text></g>
+        <g><rect x="900" y="186" width="210" height="58" rx="12" fill="var(--redbg)" stroke="var(--red)" stroke-width="1.5"/>
+          <text x="918" y="214" font-size="15" font-weight="700" fill="var(--red)">Ops Monitoring</text>
+          <text x="918" y="233" font-size="11" fill="var(--red)" class="mono">dashboard · tableau</text></g>
+        <g><rect x="900" y="306" width="210" height="58" rx="12" fill="var(--redbg)" stroke="var(--red)" stroke-width="1.5"/>
+          <text x="918" y="334" font-size="14" font-weight="700" fill="var(--red)">Executive Revenue</text>
+          <text x="918" y="353" font-size="11" fill="var(--red)" class="mono">dashboard · powerbi</text></g>
       </g>
     </svg>
   </div>
