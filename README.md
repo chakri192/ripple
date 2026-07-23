@@ -90,3 +90,21 @@ ripple/
 ## License
 
 Apache-2.0 — see [LICENSE](LICENSE).
+
+
+## Contributors
+
+| Contributor | Role |
+|-------------|------|
+| [chakri192](https://github.com/chakri192) | Author |
+| [aider](https://github.com/Aider-AI/aider) | AI pair programmer |
+
+### AI tooling
+
+README and code contributions assisted by [aider](https://github.com/Aider-AI/aider) using local LLMs via [Ollama](https://ollama.com):
+
+| Model | Used for |
+|-------|----------|
+| `qwen2.5-coder:7b` | Code suggestions, refactoring |
+| `llama3.1:8b` | Prose, documentation, commit messages |
+
