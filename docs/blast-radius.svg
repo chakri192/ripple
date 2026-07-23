@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 1000" width="1500" height="1000" font-family="-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif">
+  <rect width="1500" height="1000" fill="#f7f8fa"/>
+  <!-- header -->
+  <text x="70" y="92" font-size="34" font-weight="800" fill="#111827">Ripple</text>
+  <text x="205" y="92" font-size="26" fill="#667085">incident triage</text>
+  <rect x="1300" y="62" width="130" height="44" rx="22" fill="#fdecec" stroke="#dc2626" stroke-width="2"/>
+  <text x="1365" y="91" text-anchor="middle" font-size="22" font-weight="800" fill="#dc2626">SEV1</text>
+
+  <!-- stat strip -->
+  <g font-family="-apple-system,Segoe UI,sans-serif">
+    <rect x="70" y="140" width="325" height="120" rx="16" fill="#ffffff" stroke="#e5e7eb"/>
+    <text x="100" y="205" font-size="52" font-weight="700" fill="#0f172a">8</text>
+    <text x="100" y="235" font-size="18" fill="#667085">ASSETS AFFECTED</text>
+    <rect x="415" y="140" width="325" height="120" rx="16" fill="#ffffff" stroke="#dc2626"/>
+    <text x="445" y="205" font-size="52" font-weight="700" fill="#dc2626">3</text>
+    <text x="445" y="235" font-size="18" fill="#667085">CUSTOMER-FACING</text>
+    <rect x="760" y="140" width="325" height="120" rx="16" fill="#ffffff" stroke="#e5e7eb"/>
+    <text x="790" y="205" font-size="52" font-weight="700" fill="#0f172a">4</text>
+    <text x="790" y="235" font-size="18" fill="#667085">OWNERS TO PAGE</text>
+    <rect x="1105" y="140" width="325" height="120" rx="16" fill="#ffffff" stroke="#e5e7eb"/>
+    <text x="1135" y="205" font-size="52" font-weight="700" fill="#0f172a">5</text>
+    <text x="1135" y="235" font-size="18" fill="#667085">PLATFORMS</text>
+  </g>
+
+  <!-- graph panel -->
+  <rect x="70" y="290" width="1360" height="640" rx="18" fill="#ffffff" stroke="#e5e7eb"/>
+  <text x="100" y="340" font-size="20" letter-spacing="1" fill="#667085">BLAST RADIUS</text>
+
+  <g>
+    
+    <g stroke="#aeb6c0" stroke-width="2" fill="none">
+      <path d="M330 610 C400 610 400 470 470 470"/>
+      <path d="M330 610 C400 610 400 750 470 750"/>
+      <path d="M700 470 C770 470 770 610 840 610"/>
+      <path d="M700 750 C770 750 770 610 840 610"/>
+      <path d="M1070 610 C1140 610 1140 440 1210 440"/>
+      <path d="M1070 610 L1210 610"/>
+      <path d="M1070 610 C1140 610 1140 800 1210 800"/>
+    </g>
+    <!-- source -->
+    <rect x="140" y="576" width="190" height="68" rx="13" fill="#eceff3" stroke="#111827" stroke-width="1.8"/>
+    <text x="160" y="610" font-size="22" font-weight="700" fill="#111827">orders_raw</text>
+    <text x="160" y="632" font-size="15" fill="#8a93a0">source · snowflake</text>
+    <!-- l1 -->
+    <rect x="470" y="436" width="230" height="68" rx="13" fill="#f7f8fa" stroke="#c2c8d0" stroke-width="1.5"/>
+    <text x="492" y="470" font-size="22" font-weight="600" fill="#0f172a">stg_orders</text>
+    <text x="492" y="492" font-size="15" fill="#8a93a0">table · dbt</text>
+    <rect x="470" y="716" width="230" height="68" rx="13" fill="#f7f8fa" stroke="#c2c8d0" stroke-width="1.5"/>
+    <text x="492" y="750" font-size="22" font-weight="600" fill="#0f172a">stg_customers</text>
+    <text x="492" y="772" font-size="15" fill="#8a93a0">table · dbt</text>
+    <!-- l2 -->
+    <rect x="840" y="576" width="230" height="68" rx="13" fill="#f7f8fa" stroke="#c2c8d0" stroke-width="1.5"/>
+    <text x="862" y="610" font-size="22" font-weight="600" fill="#0f172a">fct_orders</text>
+    <text x="862" y="632" font-size="15" fill="#8a93a0">table · dbt · jrivera</text>
+    <!-- l3 -->
+    <rect x="1210" y="406" width="230" height="68" rx="13" fill="#f7f8fa" stroke="#c2c8d0" stroke-width="1.5"/>
+    <text x="1232" y="440" font-size="18" font-weight="600" fill="#0f172a">agg_daily_revenue</text>
+    <text x="1232" y="462" font-size="15" fill="#8a93a0">table · snowflake</text>
+    <rect x="1210" y="576" width="230" height="68" rx="13" fill="#fdecec" stroke="#dc2626" stroke-width="1.6"/>
+    <text x="1232" y="610" font-size="22" font-weight="700" fill="#dc2626">Ops Monitoring</text>
+    <text x="1232" y="632" font-size="15" fill="#dc2626">dashboard · tableau</text>
+    <rect x="1210" y="766" width="230" height="68" rx="13" fill="#fdecec" stroke="#dc2626" stroke-width="1.6"/>
+    <text x="1232" y="800" font-size="18" font-weight="700" fill="#dc2626">Executive Revenue</text>
+    <text x="1232" y="822" font-size="15" fill="#dc2626">dashboard · powerbi</text>
+  </g>
+</svg>
