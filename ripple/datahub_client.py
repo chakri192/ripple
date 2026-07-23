@@ -6,7 +6,7 @@ SDK against your GMS endpoint.
 
 NOTE (for the hackathon build): the newer methods (column lineage, incidents,
 failing-asset detection) are working starting points — validate each against
-your instance. Claude Code with the DataHub MCP server connected can confirm
+your instance. Any MCP client connected to the DataHub MCP server can confirm
 the exact response shapes fast.
 """
 from __future__ import annotations
