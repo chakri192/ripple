@@ -322,6 +322,7 @@ class DataHubClient:
         DataHub version's incident schema differs — validate against your
         instance and adjust the aspect fields if needed.
         """
+        import time
         import uuid
 
         # lazy import so a schema mismatch can't break the whole module
@@ -336,7 +337,7 @@ class DataHubClient:
         )
 
         incident_urn = f"urn:li:incident:{uuid.uuid4()}"
-        now = AuditStampClass(time=0, actor="urn:li:corpuser:ripple")
+        now = AuditStampClass(time=int(time.time() * 1000), actor="urn:li:corpuser:ripple")
         info = IncidentInfoClass(
             type=IncidentTypeClass.OPERATIONAL,
             title=title,
