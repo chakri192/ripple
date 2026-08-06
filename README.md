@@ -1,12 +1,32 @@
+<div align="center">
+
+<img src="assets/ripple-mark.svg" width="80" alt="ripple" />
+
 # ripple
 
-A data-incident triage agent for DataHub. Point it at a table that just broke and it walks the downstream lineage across every platform, ranks what's on fire by who gets paged first, and writes the incident back into the catalog — an `incident` tag, a runbook, and a native Incident entity — in a single command. ~1,600 lines of Python, no lineage crawling done by hand.
+**Point it at a table that just broke. It tells you everything downstream, and who to wake up.**
 
-A break in one table ripples through everything built on top of it; ripple follows the wave to the edge and tells you exactly what it hit.
+Then it writes the incident back into the catalog — a tag, a runbook, and a native Incident entity — in one command.
 
-<p align="center">
-  <img src="docs/blast-radius.svg" alt="ripple blast-radius view" width="860">
+<p>
+  <img alt="Python" src="https://img.shields.io/badge/Python-3.10%2B-1c1c1e?style=flat-square&logo=python&logoColor=3776AB" />
+  <img alt="DataHub" src="https://img.shields.io/badge/DataHub-acryl--datahub-1c1c1e?style=flat-square" />
+  <img alt="Size" src="https://img.shields.io/badge/~1.3k-lines-1c1c1e?style=flat-square" />
+  <img alt="Frontends" src="https://img.shields.io/badge/CLI-%2B%20web%20dashboard-1c1c1e?style=flat-square" />
+  <img alt="License" src="https://img.shields.io/badge/license-Apache--2.0-1c1c1e?style=flat-square" />
 </p>
+
+<br />
+
+<img src="docs/blast-radius.svg" alt="The blast-radius view: severity banner, affected asset counts, and an interactive lineage graph" width="860">
+
+<sub>A break in one table ripples through everything built on top of it. ripple follows the wave to the edge and tells you exactly what it hit.</sub>
+
+</div>
+
+<br />
+
+---
 
 ## Features
 
@@ -58,6 +78,10 @@ The commands:
 | `ripple web` | Serve the dashboard on `:8000` |
 
 ## How it works
+
+<div align="center">
+<img src="docs/pipeline.svg" width="840" alt="Read, reason, write — with the boundary showing that the LLM only produces prose, never the analysis" />
+</div>
 
 ```
   broken URN
