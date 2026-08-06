@@ -4,15 +4,15 @@
 
 # ripple
 
-**Point it at a table that just broke. It tells you everything downstream, and who to wake up.**
+**A data-incident triage agent for DataHub.**
 
-Then it writes the incident back into the catalog — a tag, a runbook, and a native Incident entity — in one command.
+Given a broken asset, it traverses downstream lineage across every platform, ranks the affected assets by criticality, resolves the owners to notify, and records the incident back into the catalog.
 
 <p>
   <img alt="Python" src="https://img.shields.io/badge/Python-3.10%2B-1c1c1e?style=flat-square&logo=python&logoColor=3776AB" />
   <img alt="DataHub" src="https://img.shields.io/badge/DataHub-acryl--datahub-1c1c1e?style=flat-square" />
   <img alt="Size" src="https://img.shields.io/badge/~1.3k-lines-1c1c1e?style=flat-square" />
-  <img alt="Frontends" src="https://img.shields.io/badge/CLI-%2B%20web%20dashboard-1c1c1e?style=flat-square" />
+  <img alt="Interfaces" src="https://img.shields.io/badge/CLI-%2B%20web%20dashboard-1c1c1e?style=flat-square" />
   <img alt="License" src="https://img.shields.io/badge/license-Apache--2.0-1c1c1e?style=flat-square" />
 </p>
 
@@ -20,64 +20,72 @@ Then it writes the incident back into the catalog — a tag, a runbook, and a na
 
 <img src="docs/blast-radius.svg" alt="The blast-radius view: severity banner, affected asset counts, and an interactive lineage graph" width="860">
 
-<sub>A break in one table ripples through everything built on top of it. ripple follows the wave to the edge and tells you exactly what it hit.</sub>
-
 </div>
-
-<br />
 
 ---
 
-## Features
+## Overview
 
-**Blast radius** — a single URN yields the complete downstream set: every affected table, view, and dashboard across all lineage hops, ranked by criticality with an automatically assigned severity. A customer-facing dashboard entering the affected set raises the incident to SEV1.
+When a table breaks, the immediate questions are which downstream assets are affected, how serious the failure is, and who needs to be informed. Answering them manually means traversing lineage across several platforms and cross-referencing ownership metadata.
 
-**Root cause** — flip the traversal upstream to rank the likely *sources* of bad data, closest raw table first, so you start looking where data actually enters instead of where it surfaced.
+ripple performs that traversal in a single command and then writes the result back to the catalog, so the incident is recorded where the affected asset is documented rather than only in a terminal.
 
-**Column-level** — not "this dashboard is affected" but the exact column that traces back to the broken field, read from fine-grained lineage.
+## Requirements
 
-**Knows who to page** — resolves owners across the blast radius and surfaces the ones sitting on customer-facing surfaces first, so the on-call page goes to the right people.
+- A running DataHub instance. A local `datahub docker quickstart` deployment is sufficient.
+- Python 3.10 or later.
+- An API token, available from `~/.datahubenv`.
 
-**Catalog write-back** — the system does not only report; it records the incident against the affected asset:
-
-| Write-back | Aspect |
-|---|---|
-| `incident` tag on the broken asset | GlobalTags |
-| triage runbook in the documentation panel | EditableDatasetProperties |
-| a first-class incident on the asset | IncidentInfo |
-
-**Auto-trigger** — a `watch` loop polls for broken assets and triages them on its own; swap the detector for DataHub assertion-failure events and it's fully hands-off.
-
-**Two front-ends** — a rich terminal UI (severity banner, lineage tree, ranked table, recommended actions) and a read-only web dashboard with an interactive lineage graph and light/dark themes. The graph is hand-rolled SVG — no charting library, no CDN.
-
-## Quickstart
+## Installation
 
 ```sh
-# needs a running DataHub (a local `datahub docker quickstart` is enough) and Python 3.10+
 uv pip install -e .
+cp .env.example .env          # set DATAHUB_GMS_TOKEN
+```
 
-# point ripple at your instance
-cp .env.example .env          # set DATAHUB_GMS_TOKEN — grab it from ~/.datahubenv
+To evaluate it against a realistic scenario:
 
-# seed a realistic incident scenario, then triage the source it prints
+```sh
 python demo/seed_incident_demo.py
 python -m ripple triage "urn:li:dataset:(urn:li:dataPlatform:snowflake,prod.raw.orders_raw,PROD)"
 ```
 
-> No DataHub handy? Try the [live simulator](https://chakri192.github.io/ripple/) — click any table to break it and watch the triage run entirely in the browser.
+> Without a DataHub instance available, the [browser-based simulator](https://chakri192.github.io/ripple/) demonstrates the same workflow — selecting any table breaks it and runs the triage locally.
 
-The commands:
+## Commands
 
-| Command | What it does |
+| Command | Description |
 |---|---|
-| `ripple triage <urn>` | Downstream blast radius, ranked, with write-back |
-| `ripple triage <urn> --no-write-back` | Report only — touches nothing |
-| `ripple triage <urn> --columns --incident` | Add column-level impact and raise an Incident entity |
-| `ripple root-cause <urn>` | Trace upstream, rank the likely sources |
-| `ripple watch --interval 15` | Poll for broken assets and auto-triage them |
-| `ripple web` | Serve the dashboard on `:8000` |
+| `ripple triage <urn>` | Downstream blast radius, ranked, with catalog write-back |
+| `ripple triage <urn> --no-write-back` | Report only; the catalog is not modified |
+| `ripple triage <urn> --columns --incident` | Adds column-level impact and raises an Incident entity |
+| `ripple root-cause <urn>` | Traverses upstream and ranks likely sources |
+| `ripple watch --interval 15` | Polls for broken assets and triages them automatically |
+| `ripple web` | Serves the read-only dashboard on port 8000 |
 
-## How it works
+## Capabilities
+
+**Blast radius.** A single URN yields the complete downstream set: every affected table, view, and dashboard across all lineage hops, ranked by criticality with an automatically assigned severity. A customer-facing dashboard entering the affected set raises the incident to SEV1.
+
+**Root cause analysis.** Reversing the traversal ranks the probable sources of incorrect data, ordered from the nearest raw table outward, so investigation begins where data enters the system rather than where the symptom appeared.
+
+**Column-level impact.** Fine-grained lineage identifies the specific column deriving from the broken field, rather than reporting only that a dashboard is affected.
+
+**Ownership resolution.** Owners are resolved across the blast radius, with those responsible for customer-facing assets surfaced first.
+
+**Catalog write-back.** The incident is recorded against the affected asset:
+
+| Written | Aspect |
+|---|---|
+| `incident` tag on the broken asset | `GlobalTags` |
+| Triage runbook in the documentation panel | `EditableDatasetProperties` |
+| A first-class incident on the asset | `IncidentInfo` |
+
+**Automatic triggering.** A `watch` loop polls for broken assets and triages them without intervention. Substituting DataHub assertion-failure events for the detector makes the process fully automatic.
+
+**Two interfaces.** A terminal interface presenting a severity banner, lineage tree, ranked table, and recommended actions; and a read-only web dashboard with an interactive lineage graph and light and dark themes. The graph is hand-authored SVG with no charting library or CDN dependency.
+
+## Architecture
 
 ```
   broken URN
@@ -88,43 +96,37 @@ The commands:
   │  owners, columns       │
   ├── reason ──────────────┤
   │  rank by criticality,  │──▶ severity (SEV1–3)
-  │  draft the narrative   │──▶ LLM   (facts stay deterministic)
+  │  draft the narrative   │──▶ LLM
   ├── write ───────────────┤
   │  tag · runbook ·       │──▶ DataHub GMS
   │  Incident entity       │
   └────────────────────────┘
 ```
 
-The separation is deliberate. **Lineage traversal, owner resolution, and ranking are implemented in code** — the same input produces the same output on every run. A language model is used only to compose the human-readable report. No determination of what is affected, how severe it is, or who should be paged is ever produced by a model, which is what makes the output safe to act on and the results reproducible.
+The separation between stages is deliberate. **Lineage traversal, owner resolution, and ranking are implemented in code**, so the same input produces the same output on every run. A language model is used solely to compose the human-readable report.
 
-## Layout
+No determination of what is affected, how severe the incident is, or who should be notified is produced by a model. This is what makes the output suitable to act on during an incident, and what makes the results reproducible.
+
+## Project structure
 
 ```
 ripple/
-  ripple/      the agent — client · triage · report · watch · ui · web
-  demo/        seeds a source → 5 tables → 3 dashboards incident scenario
-  docs/        the landing page + in-browser simulator
-  examples/    sample generated incident reports
+├── ripple/      The agent — client · triage · report · watch · ui · web
+├── demo/        Seeds a source → 5 tables → 3 dashboards scenario
+├── docs/        Landing page and in-browser simulator
+├── examples/    Sample generated incident reports
+└── skills/      Incident-triage skill definition
 ```
 
 ## License
 
 Apache-2.0 — see [LICENSE](LICENSE).
 
-
 ## Contributors
 
-| Contributor | Role |
-|-------------|------|
+| | |
+|---|---|
 | [chakri192](https://github.com/chakri192) | Author |
 | [aider](https://github.com/Aider-AI/aider) | AI pair programmer |
 
-### AI tooling
-
-README and code contributions assisted by [aider](https://github.com/Aider-AI/aider) using local LLMs via [Ollama](https://ollama.com):
-
-| Model | Used for |
-|-------|----------|
-| `qwen2.5-coder:7b` | Code suggestions, refactoring |
-| `llama3.1:8b` | Prose, documentation, commit messages |
-
+Development assisted by aider using local models through [Ollama](https://ollama.com): `qwen2.5-coder:7b` for code and `llama3.1:8b` for prose.
