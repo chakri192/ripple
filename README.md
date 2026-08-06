@@ -79,10 +79,6 @@ The commands:
 
 ## How it works
 
-<div align="center">
-<img src="docs/pipeline.svg" width="840" alt="Read, reason, write — with the boundary showing that the LLM only produces prose, never the analysis" />
-</div>
-
 ```
   broken URN
       │
